@@ -8,16 +8,34 @@ var env = process.env.NODE_ENV,
     devBase = "http://localhost:3001";
 
 module.exports = {
-    entry: [
-        'babel-polyfill',
-        'react-hot-loader/patch',
-        __dirname + '/src' + '/index.js'
-    ],
+    entry: {
+        "app": [
+            'babel-polyfill',
+            'react-hot-loader/patch',
+        ],
+        "vendor": [
+            'lodash',
+            'axios',
+            'material-ui',
+            'material-ui-icons',
+            "react",
+            "react-dom",
+            "react-router",
+            "react-router-redux",
+            "react-redux",
+            "redux-saga",
+            "redux-form",
+            "redux",
+        ],
+        "index": __dirname + '/src' + '/index.js',
+    },
     output: {
         path: __dirname + '/public/js',
         publicPath: 'js/',
-        filename: 'bundle.js'
+        filename: "[name].bundle.js",
+        chunkFilename: "[id].bundle.js",
     },
+    devtool: "cheap-source-map",
     module: {
         rules: [
             {
