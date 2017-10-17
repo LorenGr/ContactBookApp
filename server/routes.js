@@ -1,8 +1,6 @@
 var express = require('express'),
     router = express.Router(),
-    mongoose = require('mongoose');
-
-var Item = mongoose.model('Contact', new mongoose.Schema());
+    Item = require('../model/items');
 
 //now we can set the route path & initialize the API
 router.get('/', function (req, res) {

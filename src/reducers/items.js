@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {remove, uniqueId} from 'lodash';
+import {remove} from 'lodash';
 
 export default function items(state = {}, action) {
     let new_state = JSON.parse(JSON.stringify(state));
@@ -31,7 +31,11 @@ export default function items(state = {}, action) {
             return new_state;
 
         case "ITEM_FETCH_SUCCESS" :
-            new_state.list = action.items;
+            if (!new_state.listDetails) new_state.listDetails = [];
+            _.remove(new_state.listDetails,
+                item => item['_id'] === action.item.data
+            );
+            new_state.listDetails.push(action.item.data);
             return new_state;
 
         case "ITEM_ADD_SUCCESS" :

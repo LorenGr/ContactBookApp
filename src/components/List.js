@@ -21,10 +21,7 @@ export class List extends React.Component {
         super(props);
         this.fetchMore = this.fetchMore.bind(this);
         this.refreshFunction = this.refreshFunction.bind(this);
-
-        if (!this.props.items.length) {
-            dispatchFetch.call(this.props);
-        }
+        if (!this.props.items.length) dispatchFetch.call(this.props);
     }
 
     fetchMore() {
@@ -56,7 +53,7 @@ export class List extends React.Component {
 
             </div>
         ) : (
-            <LinearProgress className="loader" />
+            <LinearProgress className="loader"/>
         );
     }
 }
