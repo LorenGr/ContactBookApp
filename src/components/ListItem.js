@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {withTheme} from 'material-ui/styles';
 import Card, {CardContent, CardMedia} from 'material-ui/Card';
@@ -49,7 +48,7 @@ function getStyles(theme) {
             display: '-webkit-box',
             '-webkit-line-clamp': 2,
             '-webkit-box-orient': 'vertical',
-            color:'white'
+            color: 'white'
         },
         [theme.breakpoints.down('sm') ]: {
             root: {
@@ -110,6 +109,4 @@ ListItem.propTypes = {
     item: React.PropTypes.object.isRequired
 };
 
-export default connect()(
-    withTheme()(ListItem)
-);
+export default withTheme()(ListItem);

@@ -20,6 +20,9 @@ export default function items(state = {}, action) {
                 name: ""
             };
             return new_state;
+        case "ITEM_SEARCH" :
+            new_state.searchTerm = action.value;
+            return new_state;
         case "ITEM_DELETE_SUCCESS" :
             _.remove(new_state.list.data,
                 item => item['_id'] === action.items.data

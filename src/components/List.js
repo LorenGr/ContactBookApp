@@ -18,10 +18,25 @@ export class List extends React.Component {
         if (!this.props.items.length) dispatchFetch.call(this.props);
     }
 
+    isFoundIn(item, searchTerm) {
+        return item['first_name'].toLowerCase()
+                .indexOf(searchTerm.toLowerCase()) !== -1
+            || item['last_name'].toLowerCase()
+                .indexOf(searchTerm.toLowerCase()) !== -1;
+    }
+
     render() {
-        return this.props.items.length ? (
+
+        const {searchTerm, items} = this.props;
+
+        const filteredItems = searchTerm ?
+            items.filter(
+                item => this.isFoundIn(item, searchTerm)
+            ) : items;
+
+        return filteredItems ? (
             <div id="items" style={{marginLeft: 30}}>
-                {this.props.items.map(item => {
+                {filteredItems.map(item => {
                     return (
                         <ListItem key={item['_id']} item={item}/>
                     )
@@ -29,7 +44,7 @@ export class List extends React.Component {
             </div>
         ) : (
             <Typography color="inherit" type="title">
-              No Contacts Found
+                No Contacts Found
             </Typography>
         );
     }
@@ -38,6 +53,7 @@ export class List extends React.Component {
 function mapStateToProps(state) {
     return ({
         items: state.items.list && state.items.list.data || [],
+        searchTerm: state.items.searchTerm,
         noMore: state.items.list && state.items.list.status === code_INCOMPLETE_DATA
     });
 }
