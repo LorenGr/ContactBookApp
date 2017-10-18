@@ -11,9 +11,10 @@ function getStyles(theme) {
     return {
         root: {
             padding: 0,
-            maxWidth: 128,
+            maxWidth: 200,
+            minWidth: 200,
             display: 'inline-block',
-            margin: 1,
+            margin: 15,
             verticalAlign: 'top'
         },
         photo: {
@@ -85,10 +86,13 @@ export class ListItem extends React.Component {
                         {/*</CardMedia>*/}
                         <CardContent style={classes.content}>
                             <Typography type="title" style={classes.title}>
-                                {item.first_name}
+                                {item.first_name} {item.last_name}
                             </Typography>
-                            <Typography type="caption" style={classes.caption}>
+                            <Typography type="body1" style={classes.caption}>
                                 {item.job_title}
+                            </Typography>
+                            <Typography type="caption">
+                                {item.company}
                             </Typography>
                         </CardContent>
                     </Card>

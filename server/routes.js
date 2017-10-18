@@ -11,7 +11,7 @@ router.route('/contacts')
     .get(function (req, res) {
         Item.collection.stats().then((stats) => {
             Item.find()
-                .select('first_name job_title picture')
+                .select('first_name last_name company job_title picture')
                 .limit(Number(req.query.limit) || null)
                 .exec(function (err, items) {
                     if (err) return console.error(err);

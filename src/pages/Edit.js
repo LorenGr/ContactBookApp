@@ -6,7 +6,6 @@ import {goBack} from 'react-router-redux';
 import find from 'lodash.find';
 import Paper from 'material-ui/Paper';
 import ListDelete from '../components/ListDelete';
-import Avatar from 'material-ui/Avatar';
 import FormGroup from 'material-ui/Form/FormGroup';
 import TextField from 'material-ui/TextField';
 import AppBar from 'material-ui/AppBar';
@@ -14,16 +13,17 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton';
 import DoneIcon from 'material-ui-icons/Done';
-import ClearIcon from 'material-ui-icons/Clear';
+import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import DeleteForeverIcon from 'material-ui-icons/DeleteForever';
 import ImageUpload from '../components/ImageUpload';
+import {orange} from 'material-ui/colors';
 
 const styleSheet = {
     title: {
         flex: 1
     },
     form: {
-        paddingTop: 64,
+        paddingTop: 14,
         paddingBottom: 3,
         paddingLeft: 5,
         paddingRight: 5
@@ -32,11 +32,14 @@ const styleSheet = {
         margin: "16px 5%",
         width: '90%'
     },
-    avatar: {
-        margin: '0 auto',
-        width: 128,
-        height: 128,
-        borderRadius: '50%'
+    appToolbar: {
+        flex: 'none',
+        display: 'block',
+        textAlign: 'right',
+        minHeight: 53
+    },
+    appBar: {
+        backgroundColor: orange[800]
     }
 };
 
@@ -59,25 +62,33 @@ class renderImageUpload extends React.Component {
     }
 }
 
-const ProfileBar = ({editMode, onCancel, onDelete, pristine, reset, submitting, invalid, classes, title}) => (
-    <AppBar color="default" position="fixed">
-        <Toolbar>
-            <IconButton type="button"
-                        onClick={onCancel}
-                        aria-label="Cancel">
-                <ClearIcon/>
-            </IconButton>
-            <Typography className={classes.title} type="title">
-                {editMode ? 'Edit' : 'Create'} Profile
-            </Typography>
+const TitleBar = ({editMode, onCancel, classes}) => (
+    <Toolbar>
+        <IconButton type="button"
+                    onClick={onCancel}
+                    aria-label="Cancel">
+            <KeyboardArrowLeftIcon style={{
+                width: 40,
+                height: 40,
+            }}/>
+        </IconButton>
+        <Typography className={classes.title} type="title">
+            {editMode ? 'Edit' : 'Create'} Profile
+        </Typography>
+    </Toolbar>
+);
+
+const ProfileBar = ({editMode, onDelete, pristine, reset, submitting, invalid, classes}) => (
+    <AppBar className={classes.appBar} position="static">
+        <Toolbar className={classes.appToolbar}>
             {editMode ? <IconButton onClick={onDelete}
-                                    className={classes.icon}
+                                    color='contrast'
                                     type="button"
                                     aria-label="Delete">
                 <DeleteForeverIcon/>
             </IconButton> : null}
 
-            <IconButton className={classes.icon}
+            <IconButton color='contrast'
                         type="submit"
                         disabled={invalid || submitting || pristine}
                         aria-label="Save">
@@ -90,7 +101,6 @@ const ProfileBar = ({editMode, onCancel, onDelete, pristine, reset, submitting, 
 
 const ProfileView = ({classes, editMode}) => (
     <FormGroup className={classes.form}>
-        {/*<Field className={classes.avatar} name="picture" label="Avatar" component={renderImageUpload}/>*/}
         <Field className={classes.field} name="first_name" label="First Name" component={renderTextField}/>
         <Field className={classes.field} name="last_name" label="Surname" component={renderTextField}/>
         <Field className={classes.field} name="job_title" label="Job Title" component={renderTextField}/>
@@ -141,24 +151,20 @@ export class Edit extends React.Component {
             <Paper className="container" elevation={0} square={true}>
                 <ListDelete id="deleteDialog"/>
                 <form id="editForm" onSubmit={this.props.handleSubmit(this.submitHandler)}>
+                    <TitleBar editMode={isEditMode}
+                              {...this.props}
+                              onCancel={this.cancelHandler}/>
+
+                    <ProfileView editMode={isEditMode} {...this.props} />
                     <ProfileBar editMode={isEditMode}
                                 {...this.props}
-                                onDelete={this.deleteHandler}
-                                onCancel={this.cancelHandler}/>
-                    <ProfileView editMode={isEditMode} {...this.props} />
+                                onDelete={this.deleteHandler}/>
                 </form>
             </Paper>
         );
     }
 }
 
-// validate: function (values) {
-//     let errors = {};
-//     if (!values.recipient) {
-//         errors.recipient = "Please add a recipient to your email.";
-//     }
-//     return errors;
-// }
 const EditForm = reduxForm({
     form: 'item_edit'
 })(withStyles(styleSheet)(Edit));

@@ -8,7 +8,7 @@ var ItemsSchema = new mongoose.Schema({
     company: String,
     email: String,
     address: String,
-    phone_number: Number,
+    phone_number: String,
     picture: String,
 });
 
