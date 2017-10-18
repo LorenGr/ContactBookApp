@@ -16,17 +16,28 @@ import DoneIcon from 'material-ui-icons/Done';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import DeleteForeverIcon from 'material-ui-icons/DeleteForever';
 import ImageUpload from '../components/ImageUpload';
-import {orange} from 'material-ui/colors';
+import {cyan} from 'material-ui/colors';
 
 const styleSheet = {
     title: {
         flex: 1
     },
+    formContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        width: '100%',
+        height: '100%'
+
+    },
     form: {
         paddingTop: 14,
         paddingBottom: 3,
         paddingLeft: 5,
-        paddingRight: 5
+        paddingRight: 5,
+        flex: 1,
+        overflowY: 'auto',
+        display: 'block'
     },
     field: {
         margin: "16px 5%",
@@ -39,7 +50,11 @@ const styleSheet = {
         minHeight: 53
     },
     appBar: {
-        backgroundColor: orange[800]
+        backgroundColor: cyan[800],
+    },
+    titleBar: {
+        backgroundColor: cyan[100],
+        boxShadow:'none'
     }
 };
 
@@ -63,19 +78,21 @@ class renderImageUpload extends React.Component {
 }
 
 const TitleBar = ({editMode, onCancel, classes}) => (
-    <Toolbar>
-        <IconButton type="button"
-                    onClick={onCancel}
-                    aria-label="Cancel">
-            <KeyboardArrowLeftIcon style={{
-                width: 40,
-                height: 40,
-            }}/>
-        </IconButton>
-        <Typography className={classes.title} type="title">
-            {editMode ? 'Edit' : 'Create'} Profile
-        </Typography>
-    </Toolbar>
+    <AppBar className={classes.titleBar} position="static">
+        <Toolbar>
+            <IconButton type="button"
+                        onClick={onCancel}
+                        aria-label="Cancel">
+                <KeyboardArrowLeftIcon style={{
+                    width: 40,
+                    height: 40,
+                }}/>
+            </IconButton>
+            <Typography className={classes.title} type="title">
+                {editMode ? 'Edit' : 'Create'} Profile
+            </Typography>
+        </Toolbar>
+    </AppBar>
 );
 
 const ProfileBar = ({editMode, onDelete, pristine, reset, submitting, invalid, classes}) => (
@@ -147,15 +164,18 @@ export class Edit extends React.Component {
 
     render() {
         const isEditMode = this.form_type === 'edit';
+        const {classes} = this.props;
         return (
-            <Paper className="container" elevation={0} square={true}>
+            <Paper elevation={0} square={true}>
                 <ListDelete id="deleteDialog"/>
-                <form id="editForm" onSubmit={this.props.handleSubmit(this.submitHandler)}>
+                <form className={classes.formContainer} id="editForm"
+                      onSubmit={this.props.handleSubmit(this.submitHandler)}>
                     <TitleBar editMode={isEditMode}
                               {...this.props}
                               onCancel={this.cancelHandler}/>
 
-                    <ProfileView editMode={isEditMode} {...this.props} />
+                    <ProfileView
+                        editMode={isEditMode} {...this.props} />
                     <ProfileBar editMode={isEditMode}
                                 {...this.props}
                                 onDelete={this.deleteHandler}/>

@@ -7,14 +7,14 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import AssignmentIndIcon from 'material-ui-icons/AssignmentInd';
 import PersonAddIcon from 'material-ui-icons/PersonAdd';
-import {blue} from 'material-ui/colors';
+import {cyan} from 'material-ui/colors';
 
 const styleSheet = {
     root: {
         width: '100%',
     },
     bar: {
-        backgroundColor: blue[500]
+        backgroundColor: cyan[700]
     },
     flex: {
         flex: 1,
@@ -26,7 +26,7 @@ export class AppToolbar extends React.Component {
         const classes = this.props.classes;
         return (
             <div className={classes.root}>
-                <AppBar position="fixed" className={classes.bar}>
+                <AppBar position="static" className={classes.bar}>
                     <Toolbar>
                         <IconButton color="contrast" aria-label="Menu">
                             <AssignmentIndIcon/>

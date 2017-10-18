@@ -5,7 +5,7 @@ import {withTheme} from 'material-ui/styles';
 import Card, {CardContent, CardMedia} from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-
+import {cyan} from 'material-ui/colors';
 
 function getStyles(theme) {
     return {
@@ -14,8 +14,11 @@ function getStyles(theme) {
             maxWidth: 200,
             minWidth: 200,
             display: 'inline-block',
-            margin: 15,
-            verticalAlign: 'top'
+            margin: '15px 5px',
+            verticalAlign: 'top',
+        },
+        cardContainer: {
+            backgroundColor: cyan[400],
         },
         photo: {
             width: 128,
@@ -45,7 +48,8 @@ function getStyles(theme) {
             overflow: 'hidden',
             display: '-webkit-box',
             '-webkit-line-clamp': 2,
-            '-webkit-box-orient': 'vertical'
+            '-webkit-box-orient': 'vertical',
+            color:'white'
         },
         [theme.breakpoints.down('sm') ]: {
             root: {
@@ -80,9 +84,9 @@ export class ListItem extends React.Component {
         return (
             <Button style={classes.root}>
                 <Link style={classes.link} to={'edit/' + item['_id']}>
-                    <Card className="cardContainer">
+                    <Card style={classes.cardContainer}>
                         {/*<CardMedia style={classes.photo}>*/}
-                            {/*<img style={classes.img} src={item.picture}/>*/}
+                        {/*<img style={classes.img} src={item.picture}/>*/}
                         {/*</CardMedia>*/}
                         <CardContent style={classes.content}>
                             <Typography type="title" style={classes.title}>

@@ -35,7 +35,8 @@ export class AppStructure extends React.Component {
                                 transform: `translateX(${styles.offset}%)`,
                                 position: 'absolute',
                                 top: 64,
-                                width: '100%'
+                                width: '100%',
+                                bottom: 0
                             }
                         )}
                     >

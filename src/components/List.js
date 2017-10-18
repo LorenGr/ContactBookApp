@@ -20,7 +20,7 @@ export class List extends React.Component {
 
     render() {
         return this.props.items.length ? (
-            <div id="items" style={{textAlign: 'center'}}>
+            <div id="items" style={{marginLeft: 30}}>
                 {this.props.items.map(item => {
                     return (
                         <ListItem key={item['_id']} item={item}/>
