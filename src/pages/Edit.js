@@ -16,6 +16,7 @@ import IconButton from 'material-ui/IconButton';
 import DoneIcon from 'material-ui-icons/Done';
 import ClearIcon from 'material-ui-icons/Clear';
 import DeleteForeverIcon from 'material-ui-icons/DeleteForever';
+import ImageUpload from '../components/ImageUpload';
 
 const styleSheet = {
     title: {
@@ -28,12 +29,14 @@ const styleSheet = {
         paddingRight: 5
     },
     field: {
-        marginTop: 3
+        margin: "16px 5%",
+        width: '90%'
     },
     avatar: {
         margin: '0 auto',
         width: 128,
-        height: 128
+        height: 128,
+        borderRadius: '50%'
     }
 };
 
@@ -45,9 +48,16 @@ const renderTextField = ({input, label, meta: {touched, error}, ...custom}) => (
     />
 );
 
-const renderImageUpload = ({input, label, meta: {touched, error}, ...custom}) => (
-    <Avatar src={input.value} {...custom} />
-);
+class renderImageUpload extends React.Component {
+    render() {
+        const {input: {value, onChange}, ...custom} = this.props
+        return (
+            <ImageUpload {...custom} onChange={file => {
+                onChange(file);
+            }} value={value}/>
+        );
+    }
+}
 
 const ProfileBar = ({editMode, onCancel, onDelete, pristine, reset, submitting, invalid, classes, title}) => (
     <AppBar color="default" position="fixed">
@@ -80,8 +90,7 @@ const ProfileBar = ({editMode, onCancel, onDelete, pristine, reset, submitting, 
 
 const ProfileView = ({classes, editMode}) => (
     <FormGroup className={classes.form}>
-        {editMode ?
-            <Field className={classes.avatar} name="picture" label="Avatar" component={renderImageUpload}/> : null}
+        {/*<Field className={classes.avatar} name="picture" label="Avatar" component={renderImageUpload}/>*/}
         <Field className={classes.field} name="first_name" label="First Name" component={renderTextField}/>
         <Field className={classes.field} name="last_name" label="Surname" component={renderTextField}/>
         <Field className={classes.field} name="job_title" label="Job Title" component={renderTextField}/>
@@ -143,16 +152,15 @@ export class Edit extends React.Component {
     }
 }
 
+// validate: function (values) {
+//     let errors = {};
+//     if (!values.recipient) {
+//         errors.recipient = "Please add a recipient to your email.";
+//     }
+//     return errors;
+// }
 const EditForm = reduxForm({
-    form: 'item_edit',
-    validate: function (values) {
-        let errors = {};
-        if (!values.recipient) {
-            errors.recipient = "Please add a recipient to your email.";
-        }
-        return errors;
-    }
-
+    form: 'item_edit'
 })(withStyles(styleSheet)(Edit));
 
 function mapEditStateToProps(state, own_props) {
@@ -162,11 +170,11 @@ function mapEditStateToProps(state, own_props) {
         {'_id': own_props.params.id}
     );
 
-    const form_state =  {
+    const form_state = {
         form_type: own_props.params.id ? 'edit' : 'add',
         form_id: own_props.params.id,
-    }
-    if(form_data) form_state.initialValues = form_data;
+    };
+    if (form_data) form_state.initialValues = form_data;
     return form_state;
 }
 

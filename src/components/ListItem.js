@@ -18,7 +18,11 @@ function getStyles(theme) {
         },
         photo: {
             width: 128,
-            height: 128
+            height: 128,
+            overflow: 'hidden'
+        },
+        img: {
+            width: '100%',
         },
         caption: {
             marginTop: 1,
@@ -76,9 +80,9 @@ export class ListItem extends React.Component {
             <Button style={classes.root}>
                 <Link style={classes.link} to={'edit/' + item['_id']}>
                     <Card className="cardContainer">
-                        <CardMedia style={classes.photo}>
-                            <img src={item.picture}/>
-                        </CardMedia>
+                        {/*<CardMedia style={classes.photo}>*/}
+                            {/*<img style={classes.img} src={item.picture}/>*/}
+                        {/*</CardMedia>*/}
                         <CardContent style={classes.content}>
                             <Typography type="title" style={classes.title}>
                                 {item.first_name}

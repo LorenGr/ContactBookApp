@@ -3,7 +3,7 @@ import ApiItems from '../api/items';
 import {goBack} from 'react-router-redux';
 
 export function* itemsFetchList(action) {
-    const items = yield call(ApiItems.getList, [action.limit]);
+    const items = yield call(ApiItems.getList);
     yield put({
         type: 'ITEM_FETCH_LIST_SUCCESS', items
     });

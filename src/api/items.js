@@ -4,8 +4,7 @@ const base = String(API_URL) + "/api/contacts/";
 export default class ApiItems {
 
     static getList(limit) {
-        return axios.get(base
-            + (limit ? "?limit=" + limit : ""));
+        return axios.get(base);
     }
 
     static getItem(id) {
