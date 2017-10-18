@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ListItem from './ListItem';
+import {Link} from 'react-router';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 import Typography from 'material-ui/Typography';
 
 const code_INCOMPLETE_DATA = 206;
@@ -34,7 +37,7 @@ export class List extends React.Component {
                 item => this.isFoundIn(item, searchTerm)
             ) : items;
 
-        return filteredItems ? (
+        const renderedContacts = filteredItems ? (
             <div id="items" style={{marginLeft: 30}}>
                 {filteredItems.map(item => {
                     return (
@@ -46,6 +49,23 @@ export class List extends React.Component {
             <Typography color="inherit" type="title">
                 No Contacts Found
             </Typography>
+        );
+
+        return (
+            <div>
+                {renderedContacts}
+                <Link style={
+                    {
+                        position:'fixed',
+                        bottom : 40, right : 80
+                    }
+                } to={'edit'}>
+                    <Button fab color="accent"
+                                aria-label="Menu">
+                        <AddIcon/>
+                    </Button>
+                </Link>
+            </div>
         );
     }
 }

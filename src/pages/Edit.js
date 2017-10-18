@@ -49,9 +49,6 @@ const styleSheet = {
         textAlign: 'right',
         minHeight: 53
     },
-    appBar: {
-        backgroundColor: cyan[800],
-    },
     titleBar: {
         backgroundColor: cyan[100],
         boxShadow:'none'
@@ -96,7 +93,7 @@ const TitleBar = ({editMode, onCancel, classes}) => (
 );
 
 const ProfileBar = ({editMode, onDelete, pristine, reset, submitting, invalid, classes}) => (
-    <AppBar className={classes.appBar} position="static">
+    <AppBar color="accent" className={classes.appBar} position="static">
         <Toolbar className={classes.appToolbar}>
             {editMode ? <IconButton onClick={onDelete}
                                     color='contrast'

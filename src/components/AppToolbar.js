@@ -1,16 +1,15 @@
 import React from 'react';
 import {withStyles} from 'material-ui/styles';
-import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import AssignmentIndIcon from 'material-ui-icons/AssignmentInd';
-import PersonAddIcon from 'material-ui-icons/PersonAdd';
 import {cyan} from 'material-ui/colors';
 import Input from 'material-ui/Input';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 
 const styleSheet = {
     root: {
@@ -42,11 +41,22 @@ const styleSheet = {
 
 export class AppToolbar extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this._handleKeyPress = this._handleKeyPress.bind(props);
+    }
+
     search(value) {
         this.props.dispatch({
             type: "ITEM_SEARCH",
             value
         });
+    }
+
+    _handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.props.router.push('/');
+        }
     }
 
     render() {
@@ -73,6 +83,8 @@ export class AppToolbar extends React.Component {
                                     this.search(field.target.value);
                                 }}
                                 disableUnderline
+                                autoFocus
+                                onKeyPress={this._handleKeyPress}
                                 defaultValue=""
                                 className={classes.input}
                                 inputProps={{
@@ -80,12 +92,6 @@ export class AppToolbar extends React.Component {
                                 }}
                             />
                         </div>
-
-                        <Link to={'edit'}>
-                            <IconButton color="contrast" aria-label="Menu">
-                                <PersonAddIcon/>
-                            </IconButton>
-                        </Link>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -94,5 +100,7 @@ export class AppToolbar extends React.Component {
 };
 
 export default connect()(
-    withStyles(styleSheet)(AppToolbar)
+    withRouter(
+        withStyles(styleSheet)(AppToolbar)
+    )
 );
