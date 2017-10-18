@@ -4,35 +4,16 @@ import AppToolbar from './AppToolbar';
 import {RouteTransition} from 'react-router-transition';
 import spring from 'react-motion/lib/spring';
 
-import {withStyles} from 'material-ui/styles';
-
-const styleSheet = {
-    container: {
-        marginTop : 64,
-        paddingTop: 8,
-    },
-};
-
-/*
-    [theme.breakpoints.down('sm') ]: {
-        container: {
-            paddingTop: 1 * 7,
-        },
-    }
-};
-*/
-
 export class AppStructure extends React.Component {
 
     render() {
         const fadeConfig = {stiffness: 200, damping: 22};
         const slideConfig = {stiffness: 330, damping: 30};
-        const classes = this.props.classes;
 
         return (
-            <div className="container">
-                <AppToolbar className="toolbar"/>
-                <div id="contentContainer" className={classes.container}>
+            <div>
+                <AppToolbar/>
+                <div id="contentContainer">
 
                     <RouteTransition
                         pathname={this.props.location.pathname}
@@ -52,6 +33,9 @@ export class AppStructure extends React.Component {
                             {
                                 opacity: styles.opacity,
                                 transform: `translateX(${styles.offset}%)`,
+                                position: 'absolute',
+                                top: 64,
+                                width: '100%'
                             }
                         )}
                     >
@@ -63,4 +47,4 @@ export class AppStructure extends React.Component {
     }
 }
 
-export default withStyles(styleSheet)(AppStructure);
+export default AppStructure;
