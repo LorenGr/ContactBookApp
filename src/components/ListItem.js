@@ -81,12 +81,9 @@ export class ListItem extends React.Component {
             classes = getStyles(theme);
 
         return (
-            <Button style={classes.root}>
+            <div style={classes.root}>
                 <Link style={classes.link} to={'edit/' + item['_id']}>
-                    <Card style={classes.cardContainer}>
-                        {/*<CardMedia style={classes.photo}>*/}
-                        {/*<img style={classes.img} src={item.picture}/>*/}
-                        {/*</CardMedia>*/}
+                    <Card style={classes.cardContainer}>                     
                         <CardContent style={classes.content}>
                             <Typography type="title" style={classes.title}>
                                 {item.first_name} {item.last_name}
@@ -100,7 +97,7 @@ export class ListItem extends React.Component {
                         </CardContent>
                     </Card>
                 </Link>
-            </Button>
+            </div>
         );
     }
 }
