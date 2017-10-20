@@ -12,10 +12,6 @@ app.get('/', function (request, response) {
     response.render('public/index');
 });
 
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
-
 //now we should configure the API to use bodyParser and look for
 //JSON data in the request body
 app.use(bodyParser.urlencoded({extended: true}));
