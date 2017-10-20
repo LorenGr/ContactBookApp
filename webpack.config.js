@@ -35,7 +35,7 @@ module.exports = {
         filename: "[name].bundle.js",
         chunkFilename: "[id].bundle.js",
     },
-    devtool: "eval-source-map",
+    devtool: "nosources-source-map",
     module: {
         rules: [
             {
