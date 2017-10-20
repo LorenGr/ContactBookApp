@@ -1,0 +1,5 @@
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{HTTP:X-Forwarded-Proto} !-f
+RewriteCond %{HTTP:X-Forwarded-Proto} !-d
+RewriteRule . /index.html [L]
