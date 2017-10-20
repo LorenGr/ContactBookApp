@@ -15,7 +15,6 @@ import IconButton from 'material-ui/IconButton';
 import DoneIcon from 'material-ui-icons/Done';
 import KeyboardArrowLeftIcon from 'material-ui-icons/KeyboardArrowLeft';
 import DeleteForeverIcon from 'material-ui-icons/DeleteForever';
-import ImageUpload from '../components/ImageUpload';
 import {cyan} from 'material-ui/colors';
 
 const styleSheet = {
@@ -62,17 +61,6 @@ const renderTextField = ({input, label, meta: {touched, error}, ...custom}) => (
                {...custom}
     />
 );
-
-class renderImageUpload extends React.Component {
-    render() {
-        const {input: {value, onChange}, ...custom} = this.props
-        return (
-            <ImageUpload {...custom} onChange={file => {
-                onChange(file);
-            }} value={value}/>
-        );
-    }
-}
 
 const TitleBar = ({editMode, onCancel, classes}) => (
     <AppBar className={classes.titleBar} position="static">
