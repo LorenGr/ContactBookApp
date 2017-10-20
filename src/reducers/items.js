@@ -54,6 +54,9 @@ export default function items(state = {}, action) {
                     }
                 }
             }
+             _.remove(new_state.listDetails,
+                item => item['_id'] === action.item.data["_id"]
+            );
             return new_state;
 
         default :
