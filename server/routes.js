@@ -2,11 +2,6 @@ var express = require('express'),
     router = express.Router(),
     Item = require('../model/items');
 
-//now we can set the route path & initialize the API
-router.get('/', function (req, res) {
-    res.json({message: 'API Initialized!'});
-});
-
 router.route('/contacts')
     .get(function (req, res) {
         Item.collection.stats().then((stats) => {
